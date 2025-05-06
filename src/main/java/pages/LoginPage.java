@@ -7,11 +7,9 @@ import org.openqa.selenium.support.PageFactory;
 import utils.WaitUtils;
 
 public class LoginPage {
-    private WebDriver driver;
-    private WaitUtils wait;
+    private final WaitUtils wait;
 
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
         PageFactory.initElements(driver, this);
         this.wait = new WaitUtils(driver);
     }
