@@ -10,10 +10,9 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void loginShouldWork() {
-//        driver.get("https://the-internet.herokuapp.com/login");
-//        LoginPage loginPage = new LoginPage(driver);
-//        SecurePage securePage = new SecurePage(driver);
-//        loginPage.login("tomsmith", "SuperSecretPassword!");
-//        Assert.assertTrue(securePage.isSecureAreaDisplay());
+        LoginPage loginPage = new LoginPage(getDriver());
+        SecurePage securePage = new SecurePage(getDriver());
+        loginPage.login("tomsmith", "SuperSecretPassword!");
+        Assert.assertTrue(securePage.isSecureAreaDisplay());
     }
 }

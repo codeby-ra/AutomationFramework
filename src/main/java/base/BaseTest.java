@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import reports.ReportManager;
 import utils.DriverFactory;
 
 @Listeners(TestListener.class)
@@ -16,14 +17,14 @@ public class BaseTest {
 
     protected static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     protected static ExtentReports extent;
-    protected ExtentTest test;
+    protected static ExtentTest test;
     protected static Logger logger;
 
 
     @BeforeSuite
     public void setupSuite() {
         ConfigReader.loadProperties();
-//        extent = ReportManager.createInstance();
+        extent = ReportManager.getInstance();
         logger = LogManager.getLogger(BaseTest.class);
         logger.info("===== Test Suite Started =====");
     }
