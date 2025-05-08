@@ -5,5 +5,4 @@
             <class name="tests.LoginTest"/>
         </classes>
     </test>
-
 </suite>

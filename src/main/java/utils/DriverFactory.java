@@ -13,38 +13,45 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class DriverFactory {
 
-    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     public static WebDriver initDriver(String browser) {
         browser = browser.toLowerCase().trim();
-
         switch (browser) {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--start-maximized");
+                if (ConfigReader.get("headless").equalsIgnoreCase("true"))
+                    chromeOptions.addArguments("--headless=new");
                 driver.set(new ChromeDriver(chromeOptions));
                 break;
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.addArguments("--start-maximized");
+                if (ConfigReader.get("headless").equalsIgnoreCase("true"))
+                    firefoxOptions.addArguments("--headless");
                 driver.set(new FirefoxDriver(firefoxOptions));
                 break;
             case "edge":
                 WebDriverManager.edgedriver().setup();
                 EdgeOptions edgeOptions = new EdgeOptions();
                 edgeOptions.addArguments("--start-maximized");
+                if (ConfigReader.get("headless").equalsIgnoreCase("true"))
+                    edgeOptions.addArguments("--headless=new");
                 driver.set(new EdgeDriver(edgeOptions));
                 break;
             default:
                 throw new RuntimeException("❗ Browser not supported: " + browser);
         }
-        driver.get().get(ConfigReader.get("baseUrl"));
         return driver.get();
     }
 
+    public static void launchApp() {
+        driver.get().get(ConfigReader.get("baseUrl"));
+
+    }
 
     public static WebDriver getDriver() {
         return driver.get();
@@ -56,6 +63,4 @@ public class DriverFactory {
             driver.remove();
         }
     }
-
-
 }

@@ -17,7 +17,6 @@ public class WaitUtils {
         this.driver = driver;
     }
 
-
     public WebElement waitForVisibility(WebElement element, int timeoutSeconds) {
         return new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds)).until(ExpectedConditions.visibilityOf(element));
     }

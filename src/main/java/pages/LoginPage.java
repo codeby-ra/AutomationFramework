@@ -4,14 +4,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utils.WaitUtils;
+import utils.ElementActions;
 
 public class LoginPage {
-    private final WaitUtils wait;
 
+    WebDriver driver;
+    ElementActions actions;
     public LoginPage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
-        this.wait = new WaitUtils(driver);
+        actions = new ElementActions(driver);
     }
 
 
@@ -25,9 +27,9 @@ public class LoginPage {
     private WebElement loginBtn;
 
 
-    public void login(String username, String password) {
-        wait.waitForVisibility(usernameInput, 5).sendKeys(username);
-        wait.waitForVisibility(passwordInput, 5).sendKeys(password);
-        wait.waitForClickability(loginBtn, 5).click();
+    public void login(String username, String password){
+        actions.sendKeys(usernameInput, username, "Username Field");
+        actions.sendKeys(passwordInput, password, "Password Field");
+        actions.click(loginBtn, "Login Button");
     }
 }
